@@ -1,0 +1,18 @@
+# Restaurant Service Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restaurants-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: restaurantservice
+  template:
+    metadata:
+      labels:
+        app: restaurantservice
+    spec:
+      containers:
+        - name: restaurantservice
+          image: mkiesinski/restaurantservice:latest
