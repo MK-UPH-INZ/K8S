@@ -7,12 +7,27 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: restaurantservice
+      app: restaurants-pod
   template:
     metadata:
       labels:
-        app: restaurantservice
+        app: restaurants-pod
     spec:
       containers:
-        - name: restaurantservice
+        - name: restaurants-pod
           image: mkiesinski/restaurantservice:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name:
+    restaurants-clusterip-service
+spec:
+  type: ClusterIP
+  selector:
+    app: restaurants-pod
+  ports:
+    - name: restaurants-pod
+      protocol: TCP
+      port: 80
+      targetPort: 80
