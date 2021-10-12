@@ -1,0 +1,33 @@
+# Restaurant Service Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users-pod
+  template:
+    metadata:
+      labels:
+        app: users-pod
+    spec:
+      containers:
+        - name: users-pod
+          image: mkiesinski/userservice:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name:
+    users-clusterip-service
+spec:
+  type: ClusterIP
+  selector:
+    app: users-pod
+  ports:
+    - name: users-pod
+      protocol: TCP
+      port: 80
+      targetPort: 80
