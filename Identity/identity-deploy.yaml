@@ -1,0 +1,33 @@
+# Identity Service Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identity-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: identity-pod
+  template:
+    metadata:
+      labels:
+        app: identity-pod
+    spec:
+      containers:
+        - name: identity-pod
+          image: mkiesinski/identityservice:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name:
+    identity-clusterip-service
+spec:
+  type: ClusterIP
+  selector:
+    app: identity-pod
+  ports:
+    - name: identity-pod
+      protocol: TCP
+      port: 80
+      targetPort: 80
