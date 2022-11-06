@@ -6,11 +6,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app:apigw-pod
+      app: apigw-pod
   template:
     metadata:
       labels:
-        app:apigw-pod
+        app: apigw-pod
     spec:
       containers:
         - name: apigw-pod
