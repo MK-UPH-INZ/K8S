@@ -2,36 +2,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: restaurants-deployment
+  name: orders-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: restaurants-pod
+      app: orders-pod
   template:
     metadata:
       labels:
-        app: restaurants-pod
+        app: orders-pod
     spec:
       containers:
-        - name: restaurants-pod
-          image: mkiesinski/restaurantservice:latest
+        - name: orders-pod
+          image: mkiesinski/orderservice:latest
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name:
-    restaurants-clusterip-service
+    orders-clusterip-service
 spec:
   type: ClusterIP
   selector:
-    app: restaurants-pod
+    app: orders-pod
   ports:
-    - name: restaurants-pod
+    - name: orders-pod
       protocol: TCP
       port: 80
       targetPort: 80
-    - name: restaurants-grpc
+    - name: orders-grpc
       protocol: TCP
       port: 8888
       targetPort: 8888
